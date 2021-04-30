@@ -10,6 +10,7 @@ const setname = [];
 const friend = [];
 
 const db = firebase.firestore().collection('shop');
+
 db.onSnapshot(function (querySnapshot) {
     const dataArray = []; // 必要なデータだけが入った新しい配列を作成 
     querySnapshot.docs.forEach(function (doc) {
@@ -71,14 +72,36 @@ db.onSnapshot(function (querySnapshot) {
             element.insertAdjacentHTML('beforeend', '<td width="12%">' + much_array[push_count] + '</td>');
             element.insertAdjacentHTML('beforeend', '<td width="12%">' + tir_array[push_count] + '</td>');
             element.insertAdjacentHTML('beforeend', '<td id="middle_area" width="12%">' + data.data.middle_area + '</td>');
-            element.insertAdjacentHTML('beforeend', '<td width="12%">' + data.data.usersID + '</td>');
+            //element.insertAdjacentHTML('beforeend', '<td width="12%">' + data.data.usersID + '</td>');
             setname.push(`${data.data.name}`);
             friend.push(`${data.data.usersID}`);
+            const users = firebase.firestore().collection('users');
+            let flag = true;
+
+            users.where("usersID", "==", friend[count]).onSnapshot(function (querySnapshot) {
+                const dataArray = []; // 必要なデータだけが入った新しい配列を作成 
+                querySnapshot.docs.forEach(function (doc) {
+                    const data = {
+                        id: doc.id,
+                        data: doc.data(),
+                    }
+                    dataArray.push(data);
+                });
+                const usersname = [];
+                dataArray.forEach(function (data) {
+                    usersname.push(`${data.data.name}`);
+                    if (flag == true) {
+                        element.insertAdjacentHTML('beforeend', '<td width="12%">' + data.data.name + '</td>');
+                        flag = false;
+                    }
+                })
+            });
             count++;
         }
         push_count++;
     })
 });
+
 
 function getId(ele) {
     console.log(ele);
