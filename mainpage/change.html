@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>post</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+    <script src="../login/js/firebase.js"></script>
+    <script src="header.js"></script>
+    <link rel="stylesheet" type="text/css" href="./change.css">
+</head>
+
+<body>
+    <header id="top-head">
+        <div class="inner">
+            <h1><a href="#">dig</a></h1>
+            <div id="nav_toggle">
+                <div>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../mainpage/index.html">HOME</a></li>
+                    <li><a href="../post/index.html">投稿</a></li>
+                    <li><a href="../my_page/index.html">マイページ</a></li>
+                    <li><a href="../search/index.html">検索</a></li>
+                    <li><a href="../index.html">ログアウト</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container-box">
+        <div class="container">
+            <div class="head">
+                <h2></h2>
+            </div>
+            <h3 id="name">aaa</h3>
+            <select name="selectbox" id="selectbox">
+                <option value="">評価</option>
+                <option value="1">☆</option>
+                <option value="2">☆☆</option>
+                <option value="3">☆☆☆</option>
+                <option value="4">☆☆☆☆</option>
+                <option value="5">☆☆☆☆☆</option>
+            </select><br />
+            <textarea type="text" name="message" id="message" placeholder="コメント"></textarea><br />
+            <div class="message">Message Sent</div>
+            <button id="submit">
+                投稿変更
+            </button>
+        </div>
+    </div>
+    <script src="./change.js"></script>
+</body>
