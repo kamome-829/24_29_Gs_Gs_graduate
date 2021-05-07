@@ -7,7 +7,7 @@ var usersID = sessionStorage.getItem('usersID');
 var photos = sessionStorage.getItem('photo');
 sessionStorage.setItem('name', "");
 sessionStorage.setItem('photo', "");
-console.log("phot");
+console.log("aa");
 
 const db = firebase.firestore().collection('shop');
 const dbuser = firebase.firestore().collection('users');

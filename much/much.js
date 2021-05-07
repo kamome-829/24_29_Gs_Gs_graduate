@@ -1,5 +1,6 @@
 var userid = sessionStorage.getItem('userid');
 console.log(userid);
+console.log("fdxc");
 const db = firebase.firestore().collection('shop');
 const evaluation = [];
 const budget = [];
@@ -7,6 +8,7 @@ const genre = [];
 let budget_overall = 0;
 let genre_overall = 0;
 let gain = [0.6, 0.4];
+let gain_user = [0.5, 0.2, 0.3];
 
 db.where("usersID", "==", userid).onSnapshot(function (querySnapshot) {
 
@@ -83,4 +85,5 @@ db.where("usersID", "==", userid).onSnapshot(function (querySnapshot) {
     localStorage.setItem('budget_much', JSON.stringify(budget_set));
     localStorage.setItem('genre_much', JSON.stringify(genre_set));
 });
+
 

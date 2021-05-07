@@ -1,5 +1,6 @@
 var userid = sessionStorage.getItem('userid');
 var select = sessionStorage.getItem('select');
+
 var select_age = sessionStorage.getItem('select_age');
 
 var budget_much = localStorage.getItem('budget_much');
@@ -8,16 +9,82 @@ budget_much = JSON.parse(budget_much);
 var genre_much = localStorage.getItem('genre_much');
 genre_much = JSON.parse(genre_much);
 
+var user_much = localStorage.getItem('user_much');
+user_much = JSON.parse(user_much);
+
+// var user_array = localStorage.getItem('user_array');
+// user_array = JSON.parse(user_array);
+
 console.log(budget_much);
 console.log(genre_much);
-sessionStorage.setItem('select', "");
-sessionStorage.setItem('select_age', "");
+console.log(user_much);
+//console.log(user_array);
+//sessionStorage.setItem('select', "");
+//sessionStorage.setItem('select_age', "");
 
 let push_count = 0;
 const setname = [];
 const friend = [];
 
 const db = firebase.firestore().collection('shop');
+const udb = firebase.firestore().collection('much');
+var data3 = [];
+
+db.onSnapshot(function (querySnapshot) {
+    const dataArray = []; // 必要なデータだけが入った新しい配列を作成
+    querySnapshot.docs.forEach(function (doc) {
+        const data = {
+            id: doc.id,
+            data: doc.data(),
+        }
+        dataArray.push(data);
+    });
+    dataArray.forEach(function (data) {
+        udb.where("usersID", "==", data.data.usersID).onSnapshot(function (querySnapshot) {
+            const dataArray = [];
+            querySnapshot.docs.forEach(function (doc) {
+                const data = {
+                    id: doc.id,
+                    data: doc.data(),
+                }
+                dataArray.push(data);
+            });
+            var atmosphere = [];
+            var customer = [];
+            var taste = [];
+            var flavor = [];
+            var amount = [];
+            dataArray.forEach(function (data) {
+                atmosphere.push(`${data.data.atmosphere}`);
+                customer.push(`${data.data.customer}`);
+                taste.push(`${data.data.taste}`);
+                flavor.push(`${data.data.flavor}`);
+                amount.push(`${data.data.amount}`);
+            });
+            var count = 1;
+            if (atmosphere[0] == user_much.atmosphere) {
+                count++;
+            }
+            if (customer[0] == user_much.customer) {
+                count++;
+            }
+            if (taste[0] == user_much.taste) {
+                count++;
+            }
+            if (flavor[0] == user_much.flavor) {
+                count++;
+            }
+            if (amount[0] == user_much.amount) {
+                count++;
+            }
+            var total = (count / 6) * parseFloat(user_much.gein) * 100;
+            total = Math.floor(total);
+            data3.push(total);
+        });
+    })
+});
+
+//console.log(data3);
 
 db.onSnapshot(function (querySnapshot) {
     const dataArray = []; // 必要なデータだけが入った新しい配列を作成
@@ -35,15 +102,18 @@ db.onSnapshot(function (querySnapshot) {
     const tir_array = [];
     const much_array = [];
     let count = 0;
+    let usercount = 0;
     dataArray.forEach(function (data) {
         var tir = Math.floor(Math.random() * 6);
         var data1 = 20;
         var data2 = 10;
+        var user_data = data3[usercount];
         for (var key in budget_much) {
             if (budget_much.hasOwnProperty(key)) {
                 if (key == data.data.budget) {
                     //budget_much[key] = (Math.round(budget_much[key])) / 100;
                     data1 = (parseFloat(budget_much[key])) * 100
+                    data1 = Math.floor(data1);
                 }
             }
         }
@@ -52,10 +122,11 @@ db.onSnapshot(function (querySnapshot) {
                 if (key == data.data.genre) {
                     //genre_much[key] = (Math.round(genre_much[key])) / 100;
                     data2 = (parseFloat(genre_much[key])) * 100
+                    data2 = Math.floor(data2);
                 }
             }
         }
-        console.log(data1);
+        console.log(user_data);
         var much = data1 + data2;
         tir_array.push(tir);
         much_array.push(much);
@@ -65,6 +136,7 @@ db.onSnapshot(function (querySnapshot) {
         usersID.push(`${data.data.usersID}`);
         //let table = document.getElementById('targetTable');
         //let newRow = table.insertRow();
+        usercount++;
     })
     for (let i = 0; i < much_array.length - 1; i++) {
         for (let j = much_array.length - 1; j >= i + 1; j--) {   //右から左に操作
@@ -135,4 +207,8 @@ function getId(ele) {
     sessionStorage.setItem('name', setname[ele]);
     sessionStorage.setItem('usersID', friend[ele]);
     location.href = "../mainpage/check_shop.html"
+}
+
+function usermuch(partnerid) {
+
 }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>profile</title>
+    <link rel="stylesheet" type="text/css" href="./css/header.css">
+    <link rel="stylesheet" type="text/css" href="./css/profile.css">
+    <link rel="stylesheet" type="text/css" href="./css/chenge_much.css">
+</head>
+
+<body>
+    <header id="top-head">
+        <div class="inner">
+            <h1><a href="#">dig</a></h1>
+            <div id="nav_toggle">
+                <div>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../mainpage/index.html">HOME</a></li>
+                    <li><a href="../post/index.html">投稿</a></li>
+                    <li><a href="./index.html">マイページ</a></li>
+                    <li><a href="../search/index.html">検索</a></li>
+                    <li><a href="../index.html">ログアウト</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div id="contact">
+        <div class="container-box">
+            <div class="container">
+                <div class="head">
+                    <h2>マッチ度のデータ設定</h2>
+                </div>
+                <p>マッチをより正確にするため簡単な質問をします。</p>
+                <p>各項目の好きだと思う方を直感で選んでください。</p>
+                <select name="select_atmosphere" id="select_atmosphere">
+                    <option value="">雰囲気</option>
+                    <option value="賑やか">賑やか</option>
+                    <option value="静か">静か</option>
+                </select><br />
+                <select name="select_customer" id="select_customer">
+                    <option value="">接客</option>
+                    <option value="元気">元気</option>
+                    <option value="スマート">スマート</option>
+                </select><br />
+                <select name="select_taste" id="select_taste">
+                    <option value="">味の嗜好</option>
+                    <option value="あっさり">あっさり</option>
+                    <option value="こってり">こってり</option>
+                </select><br />
+                <select name="select_flavor" id="select_flavor">
+                    <option value="">味の味覚</option>
+                    <option value="甘い">甘い</option>
+                    <option value="辛い">辛い</option>
+                </select><br />
+                <select name="select_amount" id="select_amount">
+                    <option value="">量</option>
+                    <option value="がっつり">がっつり</option>
+                    <option value="普通">普通</option>
+                    <option value="少々">少々</option>
+                </select><br />
+                <button id="submit" type="submit">
+                    編集
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+    <script src="../login/js/firebase.js"></script>
+    <script src="chenge_muchs.js"></script>
+</body>
+
+</html>
