@@ -1,5 +1,11 @@
 var userid = sessionStorage.getItem('userid');
 var select = sessionStorage.getItem('select');
+var user_array = [];
+var arraycount = sessionStorage.getItem('arraycount');
+
+// for (let i = 0; i < arraycount; i++) {
+//     user_array.push(sessionStorage.getItem('user_array' + i));
+// }
 
 var select_age = sessionStorage.getItem('select_age');
 
@@ -12,13 +18,14 @@ genre_much = JSON.parse(genre_much);
 var user_much = localStorage.getItem('user_much');
 user_much = JSON.parse(user_much);
 
-// var user_array = localStorage.getItem('user_array');
-// user_array = JSON.parse(user_array);
+var user_array = localStorage.getItem('user_array');
+user_array = JSON.parse(user_array);
 
-console.log(budget_much);
-console.log(genre_much);
-console.log(user_much);
-//console.log(user_array);
+// console.log("budget_much");
+// console.log(genre_much);
+// console.log(user_much);
+console.log(user_array);
+console.log(arraycount);
 //sessionStorage.setItem('select', "");
 //sessionStorage.setItem('select_age', "");
 
@@ -101,13 +108,14 @@ db.onSnapshot(function (querySnapshot) {
     const usersID = [];
     const tir_array = [];
     const much_array = [];
+    const genre = [];
+    const budget = [];
     let count = 0;
     let usercount = 0;
     dataArray.forEach(function (data) {
-        var tir = Math.floor(Math.random() * 6);
         var data1 = 20;
         var data2 = 10;
-        var user_data = data3[usercount];
+        var user_data = user_array[usercount];
         for (var key in budget_much) {
             if (budget_much.hasOwnProperty(key)) {
                 if (key == data.data.budget) {
@@ -127,13 +135,15 @@ db.onSnapshot(function (querySnapshot) {
             }
         }
         console.log(user_data);
-        var much = data1 + data2;
-        tir_array.push(tir);
+        var much = data1 + data2 + user_data;
+        tir_array.push(`${data.data.evaluation}`);
         much_array.push(much);
         img.push(`${data.data.photo}`);
         name.push(`${data.data.name}`);
         middle_area.push(`${data.data.middle_area}`);
         usersID.push(`${data.data.usersID}`);
+        genre.push(`${data.data.genre}`);
+        budget.push(`${data.data.budget}`);
         //let table = document.getElementById('targetTable');
         //let newRow = table.insertRow();
         usercount++;
@@ -159,21 +169,27 @@ db.onSnapshot(function (querySnapshot) {
                 let keep_usersID = usersID[j];
                 usersID[j] = usersID[j - 1];
                 usersID[j - 1] = keep_usersID;
+                let keep_genre = genre[j];
+                genre[j] = genre[j - 1];
+                genre[j - 1] = keep_genre;
+                let keep_budget = budget[j];
+                budget[j] = budget[j - 1];
+                budget[j - 1] = keep_budget;
             }
         }
     }
-
-    dataArray.forEach(function (data) {
-        if (data.data.usersID != userid && (select == data.data.genre || select == "なし") && (select_age == data.data.budget || select_age == "なし")) {
+    console.log(much_array);
+    for (let push_count = 0; push_count < much_array.length; push_count++) {
+        if (usersID[push_count] != userid && (select == genre[push_count] || select == "なし") && (select_age == budget[push_count] || select_age == "なし")) {
             let element = document.getElementById(count);
-            element.insertAdjacentHTML('beforeend', '<td width="40%"><img id="img" src="' + data.data.photo + '" alt="Listing pic"></td>');
-            element.insertAdjacentHTML('beforeend', '<td id="name"' + count + ' width="12%">' + data.data.name + '</td>');
+            element.insertAdjacentHTML('beforeend', '<td width="40%"><img id="img" src="' + img[push_count] + '" alt="Listing pic"></td>');
+            element.insertAdjacentHTML('beforeend', '<td id="name"' + count + ' width="12%">' + name[push_count] + '</td>');
             element.insertAdjacentHTML('beforeend', '<td width="12%">' + much_array[push_count] + '</td>');
             element.insertAdjacentHTML('beforeend', '<td width="12%">' + tir_array[push_count] + '</td>');
-            element.insertAdjacentHTML('beforeend', '<td id="middle_area" width="12%">' + data.data.middle_area + '</td>');
+            element.insertAdjacentHTML('beforeend', '<td id="middle_area" width="12%">' + middle_area[push_count] + '</td>');
             //element.insertAdjacentHTML('beforeend', '<td width="12%">' + data.data.usersID + '</td>');
-            setname.push(`${data.data.name}`);
-            friend.push(`${data.data.usersID}`);
+            setname.push(`${name[push_count]}`);
+            friend.push(`${usersID[push_count]}`);
             const users = firebase.firestore().collection('users');
             let flag = true;
 
@@ -197,8 +213,7 @@ db.onSnapshot(function (querySnapshot) {
             });
             count++;
         }
-        push_count++;
-    })
+    }
 });
 
 

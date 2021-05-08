@@ -1,6 +1,6 @@
 var userid = sessionStorage.getItem('userid');
 console.log(userid);
-console.log("fdxc");
+console.log("fffffff");
 const db = firebase.firestore().collection('shop');
 const udb = firebase.firestore().collection('much');
 const evaluation = [];
@@ -9,7 +9,10 @@ const genre = [];
 let budget_overall = 0;
 let genre_overall = 0;
 let gain = [0.6, 0.4];
-let gain_user = [0.5, 0.4, 0.3];
+let gain_user = [0.4, 0.3, 0.3];
+let element = document.getElementById('selectbox');
+let element_age = document.getElementById('selectbox_age');
+
 
 db.where("usersID", "==", userid).onSnapshot(function (querySnapshot) {
 
@@ -122,10 +125,11 @@ udb.where("usersID", "==", userid).onSnapshot(function (querySnapshot) {
     });
 });
 
+let pushdata = [];
+
 db.onSnapshot(function (querySnapshot) {
     const dataArray = []; // 必要なデータだけが入った新しい配列を作成
-    pushdata = [];
-    var count = 0;
+    var total_count = 0;
     querySnapshot.docs.forEach(function (doc) {
         const data = {
             id: doc.id,
@@ -174,11 +178,17 @@ db.onSnapshot(function (querySnapshot) {
             var total = (count / 6) * parseFloat(gain_user[2]) * 100;
             total = Math.floor(total);
             pushdata.push(total);
-            sessionStorage.setItem('user_array' + count, pushdata);
         });
-        count++;
+
     });
-    //localStorage.setItem('user_array', JSON.stringify(pushdata));
-    sessionStorage.setItem('arraycount', count);
-    console.log(pushdata);
 });
+console.log(pushdata);
+document.getElementById("submit").onclick = function () {
+    sessionStorage.setItem('select', element.value);
+    sessionStorage.setItem('select_age', element_age.value);
+    localStorage.setItem('user_array', JSON.stringify(pushdata));
+    setTimeout(function () {
+        window.location.href = 'result.html';
+    }, 2000);
+
+};
