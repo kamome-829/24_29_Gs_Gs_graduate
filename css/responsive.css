@@ -29,4 +29,26 @@
         padding-bottom: 20px;
         font-weight: bold;
     }
+
+    
+.gnav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: fixed;
+    z-index: 99999;
+    right: 50px;
+    top: 20px;
+
+}
+
+.gnav_menu {
+    color: white;
+    margin: 5px;
+    padding: 5px;
+    list-style: none;
+    background: linear-gradient(86.13deg, #f7b870 -3.42%, #d9773e 59.59%);
+    /* バナーの背景色 */
+}
+
 }

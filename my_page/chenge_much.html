@@ -37,9 +37,9 @@
         <div class="container-box">
             <div class="container">
                 <div class="head">
-                    <h2>マッチ度のデータ設定</h2>
+                    <h2>相食度のデータ設定</h2>
                 </div>
-                <p>マッチをより正確にするため簡単な質問をします。</p>
+                <p>相食度をより正確にするため簡単な質問をします。</p>
                 <p>各項目の好きだと思う方を直感で選んでください。</p>
                 <select name="select_atmosphere" id="select_atmosphere">
                     <option value="">雰囲気</option>
@@ -57,9 +57,12 @@
                     <option value="こってり">こってり</option>
                 </select><br />
                 <select name="select_flavor" id="select_flavor">
-                    <option value="">味の味覚</option>
-                    <option value="甘い">甘い</option>
-                    <option value="辛い">辛い</option>
+                    <option value="">よく行く金額帯</option>
+                    <option value="501～1000円">501～1000円</option>
+                    <option value="1001～2000円">1001～2000円</option>
+                    <option value="2001～4000円">2001～4000円</option>
+                    <option value="4001～7000円">4001～7000円</option>
+                    <option value="7001～">7001～</option>
                 </select><br />
                 <select name="select_amount" id="select_amount">
                     <option value="">量</option>
@@ -78,6 +81,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
     <script src="../login/js/firebase.js"></script>
+    <script src="header.js"></script>
     <script src="chenge_muchs.js"></script>
 </body>
 

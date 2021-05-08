@@ -20,3 +20,22 @@ select {
   position: relative;
   background: #cfcedb url(./assets/arrow.svg) no-repeat right 10px center / 16px auto;
 }
+
+@media (max-width: 700px) {
+    select {
+  /* 初期化 */
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  border-radius: 5px;
+  color: #000000;
+  font-size: 16px;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  height: 40px;
+  width: 80%;
+  position: relative;
+  background: #cfcedb url(./assets/arrow.svg) no-repeat right 10px center / 16px auto;
+}
+}
